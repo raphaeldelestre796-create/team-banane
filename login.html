@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion Admin - Team Banane</title>
+</head>
+<body>
+
+<h1>🍌 Connexion Administration</h1>
+
+<input id="password" type="password" placeholder="Mot de passe">
+
+<button onclick="connexion()">
+Se connecter
+</button>
+
+<script>
+async function connexion() {
+
+    const password = document.getElementById("password").value;
+
+    const reponse = await fetch("/admin/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            password: password
+        })
+    });
+
+    if (reponse.ok) {
+        window.location.href = "/admin.html";
+    } else {
+        alert("Mot de passe incorrect");
+    }
+
+}
+</script>
+
+</body>
+</html>

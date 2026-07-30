@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Administration Team Banane</title>
+
+<link rel="stylesheet" href="/style.css">
+
+<!-- Editeur de texte -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+</head>
+
+
+<body class="admin-panel">
+
+
+<header class="admin-header">
+
+<h1>🍌 Team Banane</h1>
+
+<a href="/logout">
+🚪 Déconnexion
+</a>
+
+</header>
+
+
+
+<main class="dashboard">
+
+
+<!-- STATUT -->
+
+<div class="card">
+
+<h2>🖥️ Serveur</h2>
+
+<p id="status">
+Chargement...
+</p>
+
+</div>
+
+
+
+
+
+<!-- MAINTENANCE -->
+
+<div class="card">
+
+<h2>🔧 Maintenance</h2>
+
+<button onclick="changerMaintenance(true)">
+🟠 Activer
+</button>
+
+
+<button onclick="changerMaintenance(false)">
+🟢 Désactiver
+</button>
+
+</div>
+
+
+
+
+
+<!-- CREATION ACTUALITE -->
+
+<div class="card actualite-card">
+
+<h2>📰 Créer une actualité</h2>
+
+
+<input 
+id="titre"
+placeholder="Titre de l'annonce"
+>
+
+
+
+<h3>Texte :</h3>
+
+
+<div id="editor"></div>
+
+
+<button onclick="publierActualite()">
+📢 Publier l'actualité
+</button>
+
+
+</div>
+
+
+
+
+
+
+<!-- LISTE -->
+
+<div class="card">
+
+<h2>📋 Dernières actualités</h2>
+
+
+<div id="listeNews">
+Chargement...
+</div>
+
+
+</div>
+
+
+
+</main>
+
+
+
+
+
+<!-- Quill -->
+
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+
+
+<script>
+
+
+// Création éditeur
+
+const quill = new Quill('#editor', {
+
+theme:'snow',
+
+modules:{
+
+toolbar:[
+
+['bold','italic','underline'],
+
+[{ 'header': 1 }, { 'header': 2 }],
+
+[{ 'list':'ordered'}, { 'list':'bullet'}],
+
+['link']
+
+]
+
+}
+
+});
+
+
+
+
+
+
+// Statut
+
+function chargerStatut(){
+
+
+fetch("/status")
+
+.then(response=>response.json())
+
+.then(data=>{
+
+
+document.getElementById("status").innerHTML=data.text;
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+// Maintenance
+
+function changerMaintenance(etat){
+
+
+fetch("/admin/maintenance",{
+
+
+method:"POST",
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+
+},
+
+
+body:JSON.stringify({
+
+
+maintenance:etat
+
+
+})
+
+
+})
+
+
+.then(()=>{
+
+
+alert("✅ Maintenance modifiée");
+
+
+chargerStatut();
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+
+// Publier actualité
+
+function publierActualite(){
+
+
+
+const titre =
+document.getElementById("titre").value;
+
+
+
+const contenu =
+quill.root.innerHTML;
+
+
+
+
+fetch("/admin/news",{
+
+
+method:"POST",
+
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+
+},
+
+
+body:JSON.stringify({
+
+
+title:titre,
+
+content:contenu
+
+
+})
+
+
+})
+
+
+.then(()=>{
+
+
+alert("📰 Actualité publiée !");
+
+
+document.getElementById("titre").value="";
+
+
+quill.setContents([]);
+
+
+chargerNews();
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+
+// Afficher les anciennes annonces
+
+function chargerNews(){
+
+
+fetch("/news")
+
+
+.then(response=>response.json())
+
+
+.then(data=>{
+
+
+let html="";
+
+
+
+data.forEach(news=>{
+
+
+html += `
+
+<div class="news-item">
+
+<h3>${news.title}</h3>
+
+<div>${news.content}</div>
+
+<small>${news.date}</small>
+
+</div>
+
+`;
+
+
+
+});
+
+
+
+if(html===""){
+
+html="Aucune actualité";
+
+}
+
+
+
+document.getElementById("listeNews").innerHTML=html;
+
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+chargerStatut();
+
+chargerNews();
+
+
+</script>
+
+
+
+</body>
+
+</html>
