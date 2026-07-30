@@ -6,10 +6,24 @@
 
 
 body {
+
     font-family: 'Arial Black', Arial, sans-serif;
-    background: #050505;
+
     color: white;
-    overflow-x: hidden;
+
+    background:
+    linear-gradient(
+    rgba(0,0,0,0.75),
+    rgba(0,0,0,0.9)
+    ),
+    url("images/background.jpg");
+
+    background-size: cover;
+
+    background-attachment: fixed;
+
+    background-position: center;
+
 }
 
 
@@ -334,10 +348,263 @@ padding:12px 25px;
 
 background:#ffe600;
 
-color:black;
+color:rgb(0, 0, 0);
 
 font-weight:bold;
 
 border-radius:20px;
 
 box-shadow:0 0 15px #ffe600;
+
+}
+
+/* ===== ADMIN PANEL TEAM BANANE ===== */
+
+.admin-panel {
+
+    margin:0;
+    min-height:100vh;
+    background:#0f0f0f;
+    font-family:Arial, sans-serif;
+    color:white;
+
+}
+
+
+.admin-header {
+
+    height:80px;
+    background:#181818;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 40px;
+    box-shadow:0 5px 20px #000;
+
+}
+
+
+.admin-header h1 {
+
+    color:#ffe600;
+    font-size:32px;
+
+}
+
+
+.admin-header a {
+
+    color:white;
+    text-decoration:none;
+    background:#e63946;
+    padding:12px 20px;
+    border-radius:12px;
+
+}
+
+
+.admin-header a:hover {
+
+    background:#ff4d5a;
+
+}
+
+
+
+.dashboard {
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    padding:40px;
+
+}
+
+
+
+.card {
+
+    background:#1c1c1c;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 30px #000;
+
+}
+
+
+
+.card h2 {
+
+    color:#ffe600;
+
+}
+
+
+
+.card p {
+
+    color:#ccc;
+    font-size:17px;
+
+}
+
+
+
+.card button {
+
+    margin:10px;
+    padding:15px 25px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:16px;
+    background:#ffe600;
+
+}
+
+
+
+.card button:hover {
+
+    transform:scale(1.05);
+    background:#ffc800;
+
+}/* PAGE MAINTENANCE */
+
+.maintenance-page {
+
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#111;
+    font-family:Arial, sans-serif;
+
+}
+
+
+.maintenance-box {
+
+    background:#1c1c1c;
+    color:white;
+
+    text-align:center;
+
+    padding:40px;
+
+    border-radius:25px;
+
+    box-shadow:0 0 30px black;
+
+    width:400px;
+
+}
+
+
+.maintenance-box h1 {
+
+    color:#ffe600;
+    font-size:40px;
+
+}
+
+
+.maintenance-box h2 {
+
+    margin-top:20px;
+
+}
+
+
+.maintenance-box p {
+
+    color:#ccc;
+    font-size:18px;
+
+}
+
+
+
+/* Animation chargement */
+
+.loader {
+
+    width:60px;
+    height:60px;
+
+    border:8px solid #333;
+
+    border-top:8px solid #ffe600;
+
+    border-radius:50%;
+
+    margin:30px auto;
+
+
+    animation:rotation 1s linear infinite;
+
+}
+
+
+@keyframes rotation {
+
+    from {
+
+        transform:rotate(0deg);
+
+    }
+
+
+    to {
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+#editor {
+
+background:white;
+color:black;
+
+height:200px;
+
+margin-bottom:20px;
+
+}
+
+
+.actualite-card input {
+
+width:90%;
+padding:12px;
+
+border-radius:10px;
+
+border:none;
+
+font-size:18px;
+
+}
+
+
+.news-item {
+
+background:#111;
+
+padding:20px;
+
+border-radius:15px;
+
+margin-top:15px;
+
+}
+
+
+.news-item h3 {
+
+color:#ffe600;
+
+}
