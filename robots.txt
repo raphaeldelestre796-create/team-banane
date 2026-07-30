@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://raphaeldelestre796-create.github.io/team-banane/sitemap.xml
